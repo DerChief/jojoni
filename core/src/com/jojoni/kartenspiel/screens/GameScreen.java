@@ -4,7 +4,7 @@ package com.jojoni.kartenspiel.screens;
  * Created by Niko on 20.05.2015.
  */
 
-//Diese Klasse war eine Testklasse und wird zur Zeit noch überhaupt nicht aufgerufen.
+//Diese Klasse war eine Testklasse und wird zur Zeit noch ueberhaupt nicht aufgerufen.
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;

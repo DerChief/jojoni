@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jojoni.kartenspiel.screens.MainMenuScreen;
 
 
-public class SekaGame extends Game{
+
+public class SekaGame  extends Game {
+
 
 	public SpriteBatch batch;
 	public BitmapFont font;
