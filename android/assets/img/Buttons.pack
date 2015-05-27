@@ -17,7 +17,7 @@ ButtonSpielBeitreten
   orig: 283, 76
   offset: 0, 0
   index: -1
-ButtonSpielStarten
+ButtonSpielErstellen
   rotate: false
   xy: 571, 1
   size: 283, 76

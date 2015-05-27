@@ -61,7 +61,7 @@ public class MainMenuScreen implements Screen {
  //       btnStShowRules.checked = skin.getDrawable("img/ButtonRegelnEinsehen.png");
 
         btnStCreateGame = new Button.ButtonStyle();
-        btnStCreateGame.up = skin.getDrawable("ButtonSpielStarten");
+        btnStCreateGame.up = skin.getDrawable("ButtonSpielErstellen");
 
         btnStJoinGame = new Button.ButtonStyle();
         btnStJoinGame.up = skin.getDrawable("ButtonSpielBeitreten");
@@ -71,24 +71,11 @@ public class MainMenuScreen implements Screen {
         table.setFillParent(true);
         table.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture("img/BackgroundMenuSmall.png"))));
 
-        float screenWidth = table.getWidth();
-        float screenHeight = table.getHeight();
-        int btnWidth = 700;
-        int btnHeight = 150;
-
 
         btnShowRules = new Button(btnStShowRules);
-        btnShowRules.setPosition(600, 100);
-       // btnShowRules.setPosition((screenWidth/2) - (btnWidth/2), 100);
-        btnShowRules.setSize(btnWidth, btnHeight);
-
         btnCreateGame = new Button(btnStCreateGame);
-        btnCreateGame.setPosition(200, 600);
-        btnCreateGame.setSize(btnWidth, btnHeight);
-
         btnJoinGame = new Button(btnStJoinGame);
-        btnJoinGame.setPosition(1000, 600);
-        btnJoinGame.setSize(btnWidth, btnHeight);
+
 
         //Die Listener, die bei Berührung der Knöpfe etwas tun
         btnShowRules.addListener(new ChangeListener() {
@@ -101,21 +88,28 @@ public class MainMenuScreen implements Screen {
         btnCreateGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-             //   game.setScreen(new RuleScreen(game));
+                //   game.setScreen(new RuleScreen(game));
             }
         });
 
-        btnJoinGame.addListener(new ChangeListener(){
+        btnJoinGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-            //    game.setScreen(new RuleScreen(game));
+                //    game.setScreen(new RuleScreen(game));
             }
         });
 
-
-        table.addActor(btnShowRules);
-        table.addActor(btnCreateGame);
-        table.addActor(btnJoinGame);
+        //Reihe 0 und 1 werden auf 150 Breite festegelegt
+        table.columnDefaults(0).width(500).center();
+        table.columnDefaults(1).width(500).center();
+        table.row().height(130);
+        table.add(btnCreateGame).bottom().padBottom(150).expandX().expandY();
+        table.add(btnJoinGame).bottom().padBottom(150).expandX().expandY();
+        //Nächste Zeile und Festsetzen der Höfe
+        table.row().height(130);
+        table.add(btnShowRules).bottom().padBottom(200).expandX().colspan(2);
+      //  table.addActor(btnCreateGame);
+      //  table.addActor(btnJoinGame);
         stage.addActor(table);
 
 
@@ -145,8 +139,6 @@ public class MainMenuScreen implements Screen {
         // tell the SpriteBatch to render in the
         // coordinate system specified by the camera.
         game.batch.setProjectionMatrix(camera.combined);
-        //Hintergrundbild setzen
-
 
         //Das Rendern wird alle 0,25 Sekunden durchgefuehrt. Alles was dargestellt werden soll,
         // muss zwischen begin ung end
