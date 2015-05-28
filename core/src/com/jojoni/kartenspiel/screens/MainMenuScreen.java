@@ -77,7 +77,7 @@ public class MainMenuScreen implements Screen {
         btnJoinGame = new Button(btnStJoinGame);
 
 
-        //Die Listener, die bei Berührung der Knöpfe etwas tun
+        //Die Listener, die bei Beruehrung der Knuepfe etwas tun
         btnShowRules.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -105,7 +105,7 @@ public class MainMenuScreen implements Screen {
         table.row().height(130);
         table.add(btnCreateGame).bottom().padBottom(150).expandX().expandY();
         table.add(btnJoinGame).bottom().padBottom(150).expandX().expandY();
-        //Nächste Zeile und Festsetzen der Höfe
+        //Naechste Zeile und Festsetzen der Hoehe
         table.row().height(130);
         table.add(btnShowRules).bottom().padBottom(200).expandX().colspan(2);
       //  table.addActor(btnCreateGame);
