@@ -88,7 +88,7 @@ public class MainMenuScreen implements Screen {
         btnCreateGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                //   game.setScreen(new RuleScreen(game));
+                   game.setScreen(new GameScreen(game));
             }
         });
 
@@ -107,6 +107,9 @@ public class MainMenuScreen implements Screen {
         table.add(btnJoinGame).bottom().padBottom(150).expandX().expandY();
         //Naechste Zeile und Festsetzen der Hoehe
         table.row().height(130);
+        //Das Element wird unten angeprdnet, mit 200 Abstand von unten - auf der x-Achse
+        //wird die ganze Zeile eingenommen, dehalb ist das Element in der Mitte
+        //Geht ueber 2 Reihen
         table.add(btnShowRules).bottom().padBottom(200).expandX().colspan(2);
       //  table.addActor(btnCreateGame);
       //  table.addActor(btnJoinGame);
@@ -117,7 +120,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-
+        Gdx.input.setCatchBackKey(false);
     }
 
 
@@ -129,9 +132,6 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         //Bildschirm leeren
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
 
         // tell the camera to update its matrices.
         camera.update();

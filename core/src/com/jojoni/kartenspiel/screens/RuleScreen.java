@@ -1,11 +1,15 @@
 package com.jojoni.kartenspiel.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.jojoni.kartenspiel.SekaGame;
 
 /**
@@ -13,24 +17,36 @@ import com.jojoni.kartenspiel.SekaGame;
  */
 public class RuleScreen implements Screen{
     final SekaGame game;
+    Label lblHeadline;
+    Label lblContent;
+    Table table;
+    BitmapFont bmp;
     Texture bgTexture;
     Sprite bgSprite;
-    OrthographicCamera camera;
+//    OrthographicCamera camera;
 
     public RuleScreen(final SekaGame gam) {
         this.game = gam;
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+  //      Gdx.input.setCatchBackKey(true);
+
+   //   camera = new OrthographicCamera();
+  //    camera.setToOrtho(false, 800, 480);
+
+        Label.LabelStyle stLblHeadline = new Label.LabelStyle();
+        bmp = new BitmapFont();
+        bmp.setColor(0,0,0,0);
+        stLblHeadline.font = bmp;
+        lblHeadline = new Label ("Regeln", stLblHeadline);
 
         // Bilder werden eingelesen
-        bgTexture = new Texture(Gdx.files.internal("img/BackgroundMenuSmallRules.png"));
+        bgTexture = new Texture(Gdx.files.internal("img/BackgroundMenuSmall.png"));
     }
 
 
     @Override
     public void show() {
-
+        Gdx.input.setCatchBackKey(true);
     }
 
     @Override
@@ -41,11 +57,11 @@ public class RuleScreen implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // tell the camera to update its matrices.
-        camera.update();
+   //     camera.update();
 
         // tell the SpriteBatch to render in the
         // coordinate system specified by the camera.
-        game.batch.setProjectionMatrix(camera.combined);
+//        game.batch.setProjectionMatrix(camera.combined);
         //Hintergrundbild setzen
 
         bgSprite = new Sprite(bgTexture);
@@ -55,10 +71,11 @@ public class RuleScreen implements Screen{
         bgSprite.draw(game.batch);
         game.batch.end();
 
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
             game.setScreen(new MainMenuScreen(game));
-            dispose();
         }
+            dispose();
+
 
     }
 
