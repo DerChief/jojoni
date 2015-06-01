@@ -2,69 +2,62 @@ package com.jojoni.kartenspiel.android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.android.gms.games.Game;
 import com.google.example.games.basegameutils.GameHelper;
-import com.jojoni.kartenspiel.GoogleServicesInterface;
+import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
+import com.jojoni.kartenspiel.GoogleServicesActionResolverInterface;
 
-public class AndroidLauncher extends AndroidApplication implements GoogleServicesInterface{
-	GameHelper gh;
+public class AndroidLauncher extends AndroidApplication implements GameHelperListener {
+	private GameHelper gameHelper;
+	private Game game;
+	private GoogleActionResolver actionResolver;
 
 	@Override
-	protected void onCreate (Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		gh = new GameHelper(this, GameHelper.CLIENT_GAMES);
-		gh.enableDebugLog(false);
 
-		GameHelper.GameHelperListener gameHelperListener = new GameHelper.GameHelperListener()
-		{
-			@Override
-			public void onSignInSucceeded()
-			{
-			}
+		actionResolver = new GoogleActionResolver(this);
 
-			@Override
-			public void onSignInFailed()
-			{
-			}
-		};
+		if (gameHelper == null) {
+			gameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
+			gameHelper.enableDebugLog(true);
+		}
 
-		gh.setup(gameHelperListener);
-
-		initialize(new com.jojoni.kartenspiel.SekaGame(this), config);
+		actionResolver.makeToast("HalloWelt");
+		gameHelper.setup(this);
+		initialize(new com.jojoni.kartenspiel.SekaGame(actionResolver), config);
 	}
 
+	@Override
+	public void onSignInSucceeded() {
+	}
 
 	@Override
-	protected void onStart()
-	{
+	public void onSignInFailed() {
+	}
+
+	@Override
+	protected void onStart() {
 		super.onStart();
-		gh.onStart(this);
+		actionResolver.mGoogleApiClient.connect();
+		gameHelper.onStart(this);
 	}
 
 	@Override
-	protected void onStop()
-	{
+	protected void onStop() {
 		super.onStop();
-		gh.onStop();
+		gameHelper.onStop();
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		gh.onActivityResult(requestCode, resultCode, data);
-	}
-
-	@Override
-	public void signIn() {
-
-	}
-
-	@Override
-	public void signOut() {
-
+		gameHelper.onActivityResult(requestCode, resultCode, data);
 	}
 }

@@ -3,7 +3,6 @@ package com.jojoni.kartenspiel;
 
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jojoni.kartenspiel.screens.MainMenuScreen;
 
@@ -11,12 +10,13 @@ import com.jojoni.kartenspiel.screens.MainMenuScreen;
 
 public class SekaGame  extends Game {
 
-	static GoogleServicesInterface googleServicesInterface;
+	private static GoogleServicesActionResolverInterface googleServicesActionResolver;
 	public SpriteBatch batch;
 //	public BitmapFont font;
 
-	public SekaGame(GoogleServicesInterface googleServicesInterface){
-		this.googleServicesInterface = googleServicesInterface;
+	public SekaGame(GoogleServicesActionResolverInterface googleServicesActionResolver){
+		this.googleServicesActionResolver = googleServicesActionResolver;
+
 	}
 
 	public void create() {
@@ -24,7 +24,7 @@ public class SekaGame  extends Game {
 		//Use LibGDX's default Arial font.
 //		font = new BitmapFont();
 		//font = new BitmapFont();
-		googleServicesInterface.signIn();
+		googleServicesActionResolver.signIn();
 		this.setScreen(new MainMenuScreen(this));
 	}
 
@@ -35,6 +35,9 @@ public class SekaGame  extends Game {
 	public void dispose() {
 		batch.dispose();
 //		font.dispose();
+	}
+	public void sendCall() {
+		googleServicesActionResolver.startingNewGame();
 	}
 
 }

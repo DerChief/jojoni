@@ -81,7 +81,8 @@ public class MainMenuScreen implements Screen {
         btnShowRules.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new RuleScreen(game));
+                game.sendCall();
+                // game.setScreen(new RuleScreen(game));
             }
         });
 
